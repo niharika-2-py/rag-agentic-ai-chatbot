@@ -1,119 +1,76 @@
-# RAG-based AI Chatbot (Agentic AI eBook)
+# RAG-Based Agentic AI Chatbot
 
-## 📌 Project Overview
+## Overview
+This project implements a Retrieval-Augmented Generation (RAG) based AI chatbot using Python.
+The chatbot answers questions strictly based on the Agentic AI eBook PDF.
+No external data sources or no-code / low-code AI platforms are used.
 
-This project is a **Retrieval-Augmented Generation (RAG) based AI Chatbot** built in **Python** as part of an AI Engineer interview assignment. The chatbot answers user questions **strictly based on the Agentic AI eBook** provided as the knowledge source.
-
-📘 Knowledge Base: *Agentic AI eBook*
-🔗 [https://konverge.ai/pdf/Ebook-Agentic-AI.pdf](https://konverge.ai/pdf/Ebook-Agentic-AI.pdf)
-
-The system retrieves the most relevant content from the eBook and generates grounded answers using an LLM. The chatbot does **not hallucinate** and responds only when relevant information is found in the PDF.
+This project was developed as part of an AI Engineer interview assignment.
 
 ---
 
-## 🏗️ System Architecture (How It Works)
-
-The chatbot follows a standard **RAG (Retrieval-Augmented Generation)** pipeline:
-
-1. **PDF Ingestion**
-   The Agentic AI eBook is loaded into the system.
-
-2. **Text Chunking**
-   The PDF text is split into smaller chunks to improve retrieval accuracy.
-
-3. **Embedding Generation**
-   Each chunk is converted into vector embeddings using a text embedding model.
-
-4. **Vector Storage**
-   All embeddings are stored in a Vector Database (Pinecone / local vector store).
-
-5. **Retrieval (LangGraph)**
-   When a question is asked, LangGraph retrieves the most relevant chunks based on similarity.
-
-6. **Answer Generation**
-   The LLM generates a final answer using **only the retrieved chunks**.
-   
----
-
-## 🛠️ Tech Stack Used
-
-* **Python**
-* **LangGraph** – RAG workflow orchestration
-* **Vector Database** – Pinecone / Local Vector Store
-* **Text Embeddings** – For semantic search
-* **LLM** – For grounded response generation
-* **GitHub** – Code hosting
-
----
-
-
-## ▶️ How to Run the Chatbot
-
-### Step 1: Clone the Repository
-
-```bash
-git clone <your-github-repo-link>
-cd <repo-folder>
+## How the System Works
+```text
+1. Load the PDF document
+2. Split text into smaller chunks
+3. Convert chunks into embeddings
+4. Store embeddings in FAISS
+5. Retrieve relevant chunks for a query
+6. Generate answer only from retrieved content
 ```
 
-### Step 2: Create Virtual Environment
+---
 
+## Setup Instructions
 ```bash
-python -m venv rag-env
-rag-env\Scripts\activate   # Windows
-```
-
-### Step 3: Install Dependencies
-
-```bash
+git clone https://github.com/niharika-2-py/rag-agentic-ai-chatbot.git
+cd rag-agentic-ai-chatbot
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Step 4: Ingest PDF & Create Chunks
+---
 
+## Running the Project
+
+### Step 1: Create Text Chunks
 ```bash
-python data/chunk_pdf.py
+python src/chunk_pdf.py
 ```
 
-### Step 5: Run the Chatbot
-
+### Step 2: Generate Embeddings
 ```bash
-python src/chatbot.py
+python src/embed_chunks.py
 ```
----
 
-## 💬 Sample Queries
-
-1. What is Agentic AI?
-2. How do AI agents make decisions?
-3. What are the components of an AI agent?
-4. How is Agentic AI different from traditional AI systems?
-5. What role do tools play in Agentic AI?
-6. Explain autonomy in Agentic AI
+### Step 3: Run Chatbot
+```bash
+python src/qa_faiss.py
+```
 
 ---
 
-## 🔐 Grounding & Safety
-
-* The chatbot **only answers** if relevant context is found.
-* If no matching content exists in the PDF, the chatbot responds accordingly.
-* This ensures **zero hallucination**.
-
----
-
-## 🎯 Key Design Decisions
-
-* **Chunking** improves retrieval accuracy
-* **Vector search** enables semantic similarity matching
-* **LangGraph** ensures structured RAG flow
-* **Binary storage (chunks.pkl)** improves performance
+## Example Questions
+```text
+What is Agentic AI?
+How do AI agents differ from traditional AI systems?
+What is autonomy in agentic systems?
+What are applications of Agentic AI?
+How do agents make decisions?
+```
 
 ---
 
-## 📌 Conclusion
+## Notes
+```text
+- The chatbot answers only from the PDF content.
+- .pkl and .index files are binary artifacts.
+- These files should not be opened manually.
 
-This project demonstrates a complete end-to-end RAG-based chatbot implementation using Python and LangGraph. The system is modular, explainable, and strictly grounded in the provided knowledge source, fulfilling all assignment requirements.
 
----
+
+
+
 
 
